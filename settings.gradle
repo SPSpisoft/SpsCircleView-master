@@ -1,0 +1,3 @@
+include ':SpCircleView'
+include ':app'
+rootProject.name = "SpsCircleView-master"
