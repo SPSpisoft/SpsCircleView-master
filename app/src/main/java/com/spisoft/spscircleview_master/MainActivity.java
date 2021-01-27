@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         CircleView CV = findViewById(R.id.cv);
         CV.setBackgroundColor(R.color.purple_500);
-        CV.setViewSize(200);
+        CV.setViewSize(300);
 //
     }
 }
