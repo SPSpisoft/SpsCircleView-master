@@ -1,6 +1,5 @@
 # SpsCircleView-master
 
-####################
 
 allprojects {
 	repositories {
