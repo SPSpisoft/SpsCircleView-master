@@ -9,7 +9,7 @@ import com.spisoft.spcircleview.CircleView;
 
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         CircleView CV = findViewById(R.id.cv);
         CV.setBackgroundColor(R.color.purple_500);
         CV.setViewSize(50);
+        CV.setIcon(getResources().getDrawable(R.drawable.ic_baseline_account_circle_24));
 //
     }
 }

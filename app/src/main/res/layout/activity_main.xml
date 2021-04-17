@@ -9,7 +9,7 @@
     <com.spisoft.spcircleview.CircleView
         android:id="@+id/cv"
         app:cv_icon="@drawable/ic_baseline_create_24"
-        app:cv_icon_margin="30dp"
+        app:cv_icon_margin="0dp"
         android:layout_width="200dp"
         android:layout_height="200dp">
     </com.spisoft.spcircleview.CircleView>

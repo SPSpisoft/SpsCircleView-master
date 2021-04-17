@@ -481,4 +481,9 @@ public class CircleView extends View {
         this.mViewSize = viewSize;
         invalidateTextPaints();
     }
+
+    public void setIcon(Drawable icon){
+        this.mDrawable = icon;
+        invalidateTextPaints();
+    }
 }
