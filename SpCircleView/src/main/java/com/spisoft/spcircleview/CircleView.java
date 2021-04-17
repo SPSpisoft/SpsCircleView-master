@@ -1,15 +1,27 @@
 package com.spisoft.spcircleview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import androidx.appcompat.content.res.AppCompatResources;
 
 public class CircleView extends View {
 
@@ -25,6 +37,7 @@ public class CircleView extends View {
     private static float DEFAULT_TITLE_SIZE = 25f;
     private static float DEFAULT_SUBTITLE_SIZE = 20f;
     private static float DEFAULT_TITLE_SUBTITLE_SPACE = 0f;
+    private static float DEFAULT_ICON_MARGIN = 0f;
 
     private static int DEFAULT_STROKE_COLOR = Color.CYAN;
     private static int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -59,27 +72,30 @@ public class CircleView extends View {
     private Paint mStrokePaint;
     private Paint mBackgroundPaint;
     private Paint mFillPaint;
+    private Drawable mDrawable = null;
+    private float mDrawableMargin;
 
     private RectF mInnerRectF;
 
     private int mViewSize;
+    private Context mContext;
 
     public CircleView(Context context) {
         super(context);
-        init(null, 0);
+        init(context, null, 0);
     }
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs, 0);
+        init(context, attrs, 0);
     }
 
     public CircleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs, defStyle);
+        init(context, attrs, defStyle);
     }
 
-    private void init(AttributeSet attrs, int defStyle) {
+    private void init(Context context, AttributeSet attrs, int defStyle) {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.CircleView, defStyle, 0);
 
@@ -91,6 +107,7 @@ public class CircleView extends View {
             mSubtitleText = a.getString(R.styleable.CircleView_cv_subtitleText);
         }
 
+        mContext = context;
         mTitleColor = a.getColor(R.styleable.CircleView_cv_titleColor,DEFAULT_TITLE_COLOR);
         mSubtitleColor = a.getColor(R.styleable.CircleView_cv_subtitleColor,DEFAULT_SUBTITLE_COLOR);
         mBackgroundColor = a.getColor(R.styleable.CircleView_cv_backgroundColorValue,DEFAULT_BACKGROUND_COLOR);
@@ -105,6 +122,11 @@ public class CircleView extends View {
 
         mTitleSubtitleSpace = a.getFloat(R.styleable.CircleView_cv_titleSubtitleSpace, DEFAULT_TITLE_SUBTITLE_SPACE);
         mViewSize = a.getInteger(R.styleable.CircleView_cv_size, DEFAULT_VIEW_SIZE);
+
+        int drawableResId = a.getResourceId(R.styleable.CircleView_cv_icon, -1);
+        if(drawableResId >= 0)
+            mDrawable = AppCompatResources.getDrawable(context, drawableResId);
+        mDrawableMargin = a.getDimension(R.styleable.CircleView_cv_icon_margin, DEFAULT_ICON_MARGIN);
 
         a.recycle();
 
@@ -139,6 +161,7 @@ public class CircleView extends View {
         mBackgroundPaint.setStyle(Paint.Style.FILL);
         mBackgroundPaint.setColor(mBackgroundColor);
 
+
         //Fill Paint
         mFillPaint = new Paint();
         mFillPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -146,6 +169,13 @@ public class CircleView extends View {
         mFillPaint.setColor(mFillColor);
 
         mInnerRectF = new RectF();
+
+//        ImageView imageView = new ImageView(context);
+//        imageView.setImageResource(R.drawable.ic_baseline_add_reaction_24);
+//
+//        LayoutParams layoutParams = new RelativeLayout.LayoutParams(mViewSize, mViewSize);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        this.addView(imageView, layoutParams);
 
     }
 
@@ -175,6 +205,7 @@ public class CircleView extends View {
         setMeasuredDimension(width, height);
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -211,6 +242,15 @@ public class CircleView extends View {
                     xPos,
                     yPos + 20 + mTitleSubtitleSpace,
                     mSubTextPaint);
+        }
+
+        if (mDrawable != null) {
+            int left = (int) (0 + mDrawableMargin);
+            int top = (int) (0 + mDrawableMargin);
+            int right = (int) (this.getMeasuredWidth() - mDrawableMargin);
+            int bottom = (int) (this.getMeasuredHeight() - mDrawableMargin);
+            mDrawable.setBounds(left, top, right, bottom);
+            mDrawable.draw(canvas);
         }
 
     }

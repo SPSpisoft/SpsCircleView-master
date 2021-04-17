@@ -8,13 +8,15 @@
 
     <com.spisoft.spcircleview.CircleView
         android:id="@+id/cv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:cv_icon="@drawable/ic_baseline_create_24"
+        app:cv_icon_margin="30dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp">
     </com.spisoft.spcircleview.CircleView>
 
-    <ImageView
-        android:src="@drawable/ic_baseline_add_reaction_24"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ImageView>
+<!--    <ImageView-->
+<!--        android:src="@drawable/ic_baseline_add_reaction_24"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--    </ImageView>-->
 </RelativeLayout>
