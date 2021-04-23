@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -252,7 +253,12 @@ public class CircleView extends View {
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(canvas);
         }
+    }
 
+    public void setAlpha(int alpha){
+//        mDrawable.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+        mDrawable.setAlpha(alpha);
+        invalidate();
     }
 
     /**
