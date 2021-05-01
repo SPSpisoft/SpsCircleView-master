@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BlendMode;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -27,6 +28,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 public class CircleView extends View {
 
     private static int DEFAULT_TITLE_COLOR = Color.CYAN;
+    private static int DEFAULT_ICON_COLOR = Color.CYAN;
     private static int DEFAULT_SUBTITLE_COLOR = Color.WHITE;
 
     private static String DEFAULT_TITLE = "";
@@ -80,6 +82,7 @@ public class CircleView extends View {
 
     private int mViewSize;
     private Context mContext;
+    private int mIconColor = DEFAULT_ICON_COLOR;
 
     public CircleView(Context context) {
         super(context);
@@ -114,6 +117,7 @@ public class CircleView extends View {
         mBackgroundColor = a.getColor(R.styleable.CircleView_cv_backgroundColorValue,DEFAULT_BACKGROUND_COLOR);
         mStrokeColor = a.getColor(R.styleable.CircleView_cv_strokeColorValue,DEFAULT_STROKE_COLOR);
         mFillColor = a.getColor(R.styleable.CircleView_cv_fillColor,DEFAULT_FILL_COLOR);
+        mIconColor = a.getColor(R.styleable.CircleView_cv_iconColor,DEFAULT_ICON_COLOR);
 
         mTitleSize = a.getDimension(R.styleable.CircleView_cv_titleSize,DEFAULT_TITLE_SIZE);
         mSubtitleSize = a.getDimension(R.styleable.CircleView_cv_subtitleSize,DEFAULT_SUBTITLE_SIZE);
@@ -127,6 +131,7 @@ public class CircleView extends View {
         int drawableResId = a.getResourceId(R.styleable.CircleView_cv_icon, -1);
         if(drawableResId >= 0)
             mDrawable = AppCompatResources.getDrawable(context, drawableResId);
+
         mDrawableMargin = a.getDimension(R.styleable.CircleView_cv_icon_margin, DEFAULT_ICON_MARGIN);
 
         a.recycle();
@@ -251,6 +256,7 @@ public class CircleView extends View {
             int right = (int) (this.getMeasuredWidth() - mDrawableMargin);
             int bottom = (int) (this.getMeasuredHeight() - mDrawableMargin);
             mDrawable.setBounds(left, top, right, bottom);
+            mDrawable.setColorFilter(mIconColor, PorterDuff.Mode.MULTIPLY);
             mDrawable.draw(canvas);
             invalidate();
         }
@@ -489,10 +495,11 @@ public class CircleView extends View {
         invalidateTextPaints();
     }
 
-    public void setIcon(Drawable icon){
+    public void setIcon(Drawable icon, int color){
         this.mDrawable = icon;
+        if(color != 0) this.mIconColor = color;
         invalidateTextPaints();
-        this.mDrawable = icon;
-        invalidate();
+//        this.mDrawable = icon;
+//        invalidate();
     }
 }
