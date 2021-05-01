@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         CircleView CV = findViewById(R.id.cv);
         CV.setBackgroundColor(Color.RED);
         CV.setViewSize(50);
-        CV.setIcon(getResources().getDrawable(R.drawable.ic_baseline_account_circle_24));
+        CV.setIcon(getResources().getDrawable(R.drawable.ic_baseline_account_circle_24), Color.RED);
 
         CV.setOnClickListener(new View.OnClickListener() {
             @Override
