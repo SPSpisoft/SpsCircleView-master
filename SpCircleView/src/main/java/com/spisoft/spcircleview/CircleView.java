@@ -252,6 +252,7 @@ public class CircleView extends View {
             int bottom = (int) (this.getMeasuredHeight() - mDrawableMargin);
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(canvas);
+            invalidate();
         }
     }
 
@@ -491,5 +492,7 @@ public class CircleView extends View {
     public void setIcon(Drawable icon){
         this.mDrawable = icon;
         invalidateTextPaints();
+        this.mDrawable = icon;
+        invalidate();
     }
 }
