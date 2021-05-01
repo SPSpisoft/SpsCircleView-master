@@ -28,7 +28,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 public class CircleView extends View {
 
     private static int DEFAULT_TITLE_COLOR = Color.CYAN;
-    private static int DEFAULT_ICON_COLOR = Color.CYAN;
+    private static int DEFAULT_ICON_COLOR = Color.GRAY;
     private static int DEFAULT_SUBTITLE_COLOR = Color.WHITE;
 
     private static String DEFAULT_TITLE = "";
